@@ -1,4 +1,4 @@
-let scene, camera, renderer, cube;
+let scene, camera, renderer, dodecahedron;
 
 function init() {
     scene = new THREE.Scene();
@@ -6,24 +6,22 @@ function init() {
     
     renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'), antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000);
+    renderer.setClearColor(0xffffff);  
 
-    // Create a cube geometry
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    // Create a dodecahedron geometry
+    const geometry = new THREE.DodecahedronGeometry(1);
 
-    // Load Earth texture (or any other texture you prefer)
+    // Load texture
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load('https://three.miniprogramming.com/images/earthmap1k.jpg');
     const material = new THREE.MeshPhongMaterial({
         map: texture,
     });
 
-    cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    dodecahedron = new THREE.Mesh(geometry, material);
+    scene.add(dodecahedron);
 
-    camera.position.z = 3;
-
-    // Add lights
+    camera.position.z = 3;  
     const ambientLight = new THREE.AmbientLight(0x404040);
     scene.add(ambientLight);
 
@@ -35,8 +33,8 @@ function init() {
 function animate() {
     requestAnimationFrame(animate);
 
-    cube.rotation.y += 0.005;
-    cube.rotation.x += 0.005;  // Rotate around the x-axis as well for more dynamic effect
+    dodecahedron.rotation.y += 0.02;  
+    dodecahedron.rotation.x += 0.02;  
 
     renderer.render(scene, camera);
 }
